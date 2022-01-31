@@ -1,0 +1,15 @@
+FROM node:14.11.0-alpine
+ARG PORT
+ARG NODE_ENV
+WORKDIR /portal-server
+ENV PORT 5000
+ENV NODE_ENV ${NODE_ENV}
+RUN echo ${NODE_ENV}
+COPY package*.json ./
+RUN npm install --silent
+# Copy app source code
+COPY . .
+RUN chmod +x wait-for-it
+RUN chmod +x start.sh
+#Expose port and start application
+EXPOSE 5000

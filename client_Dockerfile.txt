@@ -1,0 +1,18 @@
+FROM node:14.11.0-alpine
+ARG PORT
+ARG NODE_ENV
+ARG REACT_APP_BASE_API_URL
+WORKDIR /portal-client
+COPY package*.json ./
+RUN npm install --silent
+ENV PORT 5001
+ENV NODE_ENV ${NODE_ENV}
+ENV REACT_APP_BASE_API_URL ${REACT_APP_BASE_API_URL}
+RUN echo ${REACT_APP_BASE_API_URL}
+RUN echo 5001
+RUN echo ${NODE_ENV}
+# Copy app source code
+COPY . .
+RUN chmod +x start.sh
+#Expose port and start application
+EXPOSE 5001
